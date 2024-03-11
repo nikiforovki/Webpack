@@ -1,0 +1,88 @@
+:root {
+  --header-background-color: #fdfdfd;
+  --header-text-color: #0e0d0d;
+
+  --ParentComponent-background-color: #ffffff;
+  --ParentComponent-text-color: #101010;
+
+  --body-background: white;
+  --body-color: black;
+
+  --app-background-color: #ffffff;
+//Модалка
+  --modal_content-background-color: #fdfdfd;
+  --modal_content-border-color: white;
+
+  //Текст заголовка в модальном окне
+  --h1-color: black;
+
+  //Инпут в модальном окне
+  --input-border-color:#429bdf
+
+  //Цвет текста в Алерте
+  --textAlert-background-color: black;
+
+  //Окно с лева с тасками
+  --tabTaska-border-color: #6c63ff;
+  --taskItem-border-color: #6c63ff;
+
+  --tabTaska-color:#6c63ff;
+
+  --taskItem-color: black;
+
+
+}
+
+
+//Темная тема
+
+[data-theme='dark'] {
+
+  --header-background-color: rgba(16, 16, 16, 0.86);
+  --header-text-color: #ffffff;
+
+  --ParentComponent-background-color: rgb(37, 37, 37);
+  --ParentComponent-text-color: #ffffff;
+
+
+  --app-background-color: rgb(37, 37, 37);
+
+  //Модалка
+  --modal_content-background-color: #252525;
+  --modal_content-border-color: white;
+
+  //Текст в модальном окне
+  --h1-color: #fdfdfd;
+
+  //Инпут в модальном окне
+  --input-border-color: #ffffff
+
+  //Цвет текста в Алерте
+  --textAlert-background-color: #fdfdfd;
+
+  //Окно с лева с тасками
+  --tabTaska-border-color: rgba(253, 253, 253, 0.97);
+  --taskItem-border-color: rgba(253, 253, 253, 0.97);
+
+  --tabTaska-color: #fdfdfd;
+  --taskItem-color: #fdfdfd;
+}
+
+
+.App {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height:  100vh;
+  width:  100vw;
+  background-color: var(--app-background-color);
+}
+
+html, body {
+  margin:  0;
+  padding:  0;
+
+
+}
+
+

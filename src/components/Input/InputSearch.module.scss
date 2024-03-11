@@ -1,0 +1,39 @@
+.inputButtonContainer {
+  display: flex;
+  width:   595px;
+  height:   38px;
+  padding-right:   8px;
+  padding-top:   8px;
+  padding-bottom:   8px;
+  border-radius:   10px;
+  background-repeat: no-repeat;
+  background-size:   21px; /* Размер изображения */
+
+}
+
+
+.buttonContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-right: -200px;
+
+}
+
+.input {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width:   595px;
+  height:   38px;
+  border-radius:   10px;
+  border-color: #429bdf;
+  box-sizing: border-box;
+  background-image: url('../../../public/Img/Lupa.svg');
+  background-repeat: no-repeat;
+  background-position:   510px;
+  background-size:   21px;
+  padding-left:10px;
+
+}
+
