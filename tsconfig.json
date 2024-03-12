@@ -38,6 +38,5 @@
     "./public/**/*.svg",
     "custom.d.ts",
     "src/**/*"
-
   ]
 }

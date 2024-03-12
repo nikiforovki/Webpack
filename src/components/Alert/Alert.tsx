@@ -1,31 +1,34 @@
-import React, { useEffect } from 'react';
-import styles from './Alert.module.scss';
+import React, { useEffect } from "react";
+import styles from "./Alert.module.scss";
 
 interface AlertModalProps {
-    message: string;
-    isOpen: boolean;
-    closeAlert: () => void;
+  message: string;
+  isOpen: boolean;
+  closeAlert: () => void;
 }
 
-export const AlertModal: React.FC<AlertModalProps> = ({ message, isOpen, closeAlert }) => {
-    useEffect(() => {
-        if (isOpen) {
-            const timer = setTimeout(() => {
-                closeAlert();
-            },  5000); // Задержка перед закрытием алерта
+export const AlertModal: React.FC<AlertModalProps> = ({
+  message,
+  isOpen,
+  closeAlert,
+}) => {
+  useEffect(() => {
+    if (isOpen) {
+      const timer = setTimeout(() => {
+        closeAlert();
+      }, 5000);
 
-            return () => {
-                clearTimeout(timer); // Очистка таймера
-            };
-        }
-    }, [isOpen, closeAlert]);
+      return () => {
+        clearTimeout(timer);
+      };
+    }
+  }, [isOpen, closeAlert]);
 
-
-    return (
-        <div className={styles.alertModal}>
-            <div className={styles.box}><p className={styles.textAlert}>Добавлена</p></div>
-        </div>
-    );
+  return (
+    <div className={styles.alertModal}>
+      <div className={styles.box}>
+        <p className={styles.textAlert}>Добавлена</p>
+      </div>
+    </div>
+  );
 };
-
-

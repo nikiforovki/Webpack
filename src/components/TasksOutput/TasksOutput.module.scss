@@ -1,0 +1,222 @@
+.toggleModal {
+  background-color: #6c63ff;
+  padding: 10px;
+  width: 50px;
+  height: 50px;
+  border: none;
+  border-radius: 30px;
+
+  border-color: aliceblue;
+  background-image: url("../../../public/Img/Plus.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 21px;
+  left: 1050px;
+  margin-top: 250px;
+  z-index: 20000;
+  position: fixed;
+  cursor: pointer;
+}
+
+.okno {
+  position: absolute;
+  top: 450px;
+  left: 700px;
+  width: 520px;
+  height: 545px;
+  transform: translate(-60%, -50%);
+
+  background-color: var(--ParentComponent-background-color);
+  border: none;
+  padding: 0;
+  z-index: 0;
+}
+
+.inputCheckbox {
+  width: 26px;
+  height: 26px;
+
+  background-color: var(--ParentComponent-background-color);
+
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: 10px;
+  float: left;
+  cursor: pointer;
+}
+
+.selected {
+  text-decoration: line-through;
+  color: rgb(110, 108, 108);
+}
+
+.taskItem {
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid #429bdf;
+  padding-bottom: 0;
+  margin-bottom: 10px;
+}
+
+.taska {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.content {
+  width: 750px;
+  height: 710px;
+}
+
+.h1 {
+  color: #6c63ff;
+}
+
+.deleteTaskContainer {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  cursor: pointer;
+}
+
+.deleteTask {
+  width: 18px;
+  height: 18px;
+  fill: rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+  margin-left: auto;
+  margin-bottom: 0;
+  margin-top: 10px;
+}
+
+.blocktaska {
+  width: 520px;
+}
+
+.addedTaskMessage {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #4caf50;
+  color: var(--ParentComponent-background-color);
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.alertModal {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.alertModal p {
+  margin-bottom: 10px;
+}
+
+.alertModal button {
+  background-color: #007bff;
+  color: var(--ParentComponent-background-color);
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.knopka {
+  position: fixed;
+  bottom: 80px;
+
+  top: -500px;
+  left: -65px;
+}
+
+.tabTaska {
+  width: 300px;
+  height: 180px;
+
+  background-color: rgba(253, 253, 253, 0);
+  position: fixed;
+  top: 0;
+  left: 0;
+  margin-top: 50px;
+  margin-left: 18px;
+}
+
+.taskItem {
+  border-bottom: 1px solid;
+  color: var(--taskItem-color);
+  border-color: var(--taskItem-border-color);
+  padding: 8px 0;
+  font-size: 20px;
+}
+
+.tabTaska {
+  color: var(--tabTaska-color);
+}
+
+.izButton {
+  width: 20px;
+  height: 20px;
+  background-image: url("../../../public/Img/IzmTaska.svg");
+  background-color: rgba(110, 108, 108, 0);
+  background-repeat: no-repeat;
+  background-position: center;
+  border: none;
+  margin-left: 400px;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.inputIzmTas {
+  width: 250px;
+  height: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  margin-left: 0;
+
+  z-index: 3000;
+}
+
+.conteinerButton {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 3000;
+}
+
+.taskInput {
+  position: relative;
+}
+
+.sbutton {
+  background-color: #6c63ff;
+  padding: 10px;
+  width: 100px;
+
+  height: 38px;
+  border-radius: 5px;
+  margin-left: 15px;
+  border: none;
+  overflow: visible;
+  position: relative;
+  z-index: 1000;
+  background-image: url("../../../public/Img/strelka.svg");
+  background-repeat: no-repeat;
+  background-position: right 0.7em center;
+  background-size: 0.65em auto;
+}
+
+.completedTask {
+  text-decoration: line-through;
+}
+
+.buttonSort {
+  margin-left: -100px;
+}
