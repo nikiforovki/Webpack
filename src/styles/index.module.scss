@@ -9,32 +9,24 @@
   --body-color: black;
 
   --app-background-color: #ffffff;
-//Модалка
+
   --modal_content-background-color: #fdfdfd;
   --modal_content-border-color: white;
 
-  //Текст заголовка в модальном окне
   --h1-color: black;
 
-  //Инпут в модальном окне
   --input-border-color:#429bdf
 
-  //Цвет текста в Алерте
   --textAlert-background-color: black;
 
-  //Окно с лева с тасками
   --tabTaska-border-color: #6c63ff;
   --taskItem-border-color: #6c63ff;
 
   --tabTaska-color:#6c63ff;
 
-  --taskItem-color: black;
-
+  --taskItem-color: #101010;
 
 }
-
-
-//Темная тема
 
 [data-theme='dark'] {
 
@@ -44,30 +36,23 @@
   --ParentComponent-background-color: rgb(37, 37, 37);
   --ParentComponent-text-color: #ffffff;
 
-
   --app-background-color: rgb(37, 37, 37);
 
-  //Модалка
   --modal_content-background-color: #252525;
   --modal_content-border-color: white;
 
-  //Текст в модальном окне
   --h1-color: #fdfdfd;
 
-  //Инпут в модальном окне
   --input-border-color: #ffffff
 
-  //Цвет текста в Алерте
   --textAlert-background-color: #fdfdfd;
 
-  //Окно с лева с тасками
   --tabTaska-border-color: rgba(253, 253, 253, 0.97);
   --taskItem-border-color: rgba(253, 253, 253, 0.97);
 
   --tabTaska-color: #fdfdfd;
   --taskItem-color: #fdfdfd;
 }
-
 
 .App {
   display: flex;

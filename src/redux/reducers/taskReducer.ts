@@ -3,7 +3,7 @@ import {
   ADD_TASK,
   DELETE_TASK,
   UPDATE_TASK,
-} from "../Actions/actions";
+} from '../Actions/actions';
 
 export interface Task {
   id: string;
@@ -25,7 +25,7 @@ const initialState: TaskState = {
 
 export const taskReducer = (
   state = initialState,
-  action: TaskActionTypes
+  action: TaskActionTypes,
 ): TaskState => {
   switch (action.type) {
     case ADD_TASK:
@@ -36,11 +36,11 @@ export const taskReducer = (
 
     case DELETE_TASK:
       const taskToDelete = state.tasks.find(
-        (task) => task.id === action.payload
+        (task) => task.id === action.payload,
       );
       if (taskToDelete) {
         const updatedTasks = state.tasks.filter(
-          (task) => task.id !== action.payload
+          (task) => task.id !== action.payload,
         );
 
         const newDeletedTasks = [...state.deletedTasks, taskToDelete];
@@ -54,7 +54,7 @@ export const taskReducer = (
 
     case UPDATE_TASK:
       const newTasks = state.tasks.map((task) =>
-        task.id === action.payload.id ? action.payload : task
+        task.id === action.payload.id ? action.payload : task,
       );
       return {
         ...state,

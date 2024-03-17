@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import styles from "./Alert.module.scss";
+import React, { useEffect } from 'react';
+import styles from './SuccessAddedTaskModal.module.scss';
 
 interface AlertModalProps {
   message: string;
@@ -7,7 +7,7 @@ interface AlertModalProps {
   closeAlert: () => void;
 }
 
-export const AlertModal: React.FC<AlertModalProps> = ({
+export const SuccessAddedTaskModal: React.FC<AlertModalProps> = ({
   message,
   isOpen,
   closeAlert,

@@ -1,6 +1,6 @@
 import React from "react";
 
-const BackArrow = ({
+const BackArrowIcon = ({
   className = "",
   width = "20px",
   height = "20px",
@@ -22,4 +22,4 @@ const BackArrow = ({
   );
 };
 
-export default BackArrow;
+export default BackArrowIcon;

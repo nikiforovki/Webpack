@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import styles from "./ToggleDeleteAllTask.module.scss";
 import DeleteTaskImage from "../../../public/Img/DeleteTaskImage";
-import EndStrel1 from "../../../public/Img/BackArrow";
+import EndStrel1 from "../../../public/Img/BackArrowIcon";
 
 interface ToggleDeleteProps {
   onDelete: () => void;
   className?: string;
 }
 
-const ToggleDelete: React.FC<ToggleDeleteProps> = ({ onDelete, className }) => {
+const ToggleDeleteAllTasks: React.FC<ToggleDeleteProps> = ({ onDelete, className }) => {
   const [isToggled, setIsToggled] = useState(false);
 
   const toggle = () => setIsToggled(!isToggled);
@@ -21,7 +21,7 @@ const ToggleDelete: React.FC<ToggleDeleteProps> = ({ onDelete, className }) => {
 
   return (
     <div className={`${styles.toggleContainer} ${className}`}>
-      <button className={styles.toggler} onClick={toggle}>
+      <button className={styles.buttonDeleteAllTasks} onClick={toggle}>
         {isToggled ? <EndStrel1 /> : <DeleteTaskImage />}
       </button>
       {isToggled && (
@@ -33,4 +33,4 @@ const ToggleDelete: React.FC<ToggleDeleteProps> = ({ onDelete, className }) => {
   );
 };
 
-export default ToggleDelete;
+export default ToggleDeleteAllTasks;

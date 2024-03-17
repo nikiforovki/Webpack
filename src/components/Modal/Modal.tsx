@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import styles from "./Modal.module.scss";
+import React, { useState } from 'react';
+import styles from './Modal.module.scss';
 
 interface ModalProps {
   closeModal: () => void;
@@ -7,48 +7,55 @@ interface ModalProps {
 }
 
 export const Modal: React.FC<ModalProps> = ({ closeModal, onNewTask }) => {
-  const [inputValue, setInputValue] = useState<string>("");
-  const [open, setOpen] = useState(false);
+  const [inputValue, setInputValue] = useState<string>('');
+  const [isOpen, setisOpen] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const onOpenModal = () => {
-    setOpen(true);
+    setisOpen(true);
   };
+
   const onCloseModal = () => {
-    setOpen(false);
+    setisOpen(false);
   };
 
   const handleInputClick = (event: React.MouseEvent<HTMLInputElement>) => {
     event.stopPropagation();
   };
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "Enter") {
+    if (event.key === 'Enter') {
       handleAddTask();
     }
   };
-
   const handleAddTask = () => {
-    if (inputValue.trim() !== "") {
+    if (inputValue.trim().length < 1) {
+      setError('Текст задачи не может быть пустым');
+    } else if (inputValue.trim().length > 40) {
+      setError('Текст задачи не может превышать 40 символов');
+    } else {
       onNewTask(inputValue);
-      setInputValue("");
+      setInputValue('');
+      setError(null);
     }
   };
 
   return (
     <div className={styles.modal_content} onClick={closeModal}>
-      <h1 className={styles.h1}>Добавить задачу</h1>
+      <h1 className={styles.title}>Добавить задачу</h1>
       <input
         className={styles.input}
-        placeholder="Введите текст..."
+        placeholder='Введите текст...'
         value={inputValue}
-        onChange={handleChange}
+        onChange={handleInputChange}
         onClick={handleInputClick}
         onKeyDown={handleKeyDown}
       />
+      {error && <div className={styles.errorMessage}>{error}</div>}
       <button className={styles.closeButton} onClick={onCloseModal}>
         Закрыть
       </button>

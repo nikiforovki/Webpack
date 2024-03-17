@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "./Taskсhanges.module.scss";
+import styles from "./Task.module.scss";
 
 interface Task {
   id: string;
@@ -8,7 +8,7 @@ interface Task {
 
 type OnEditComplete = (newTaskText: string) => void;
 
-export const TaskChanges: React.FC<{
+export const Task: React.FC<{
   task: Task;
   onEditComplete: OnEditComplete;
 }> = ({ task, onEditComplete }) => {

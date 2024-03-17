@@ -1,22 +1,20 @@
-import React from "react";
-import styles from "./ButtonSort.module.scss";
+import React from 'react';
+import styles from './SortTodosListButton.module.scss';
 
 interface ButtonSortProps {
   onSortChange: (
-    order: "asc" | "desc",
-    filter?: "all" | "complete" | "incomplete"
+    order: 'asc' | 'desc',
+    filter?: 'all' | 'complete' | 'incomplete',
   ) => void;
 }
 
-const ButtonSort: React.FC<ButtonSortProps> = ({ onSortChange }) => {
+const SortTodosListButton: React.FC<ButtonSortProps> = ({ onSortChange }) => {
   const handleSortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const [order, filter] = event.target.value.split("-");
-    if (typeof onSortChange === "function") {
-      onSortChange(
-        order as "asc" | "desc",
-        filter as "all" | "complete" | "incomplete"
-      );
-    }
+    const [order, filter] = event.target.value.split('-');
+    onSortChange?.(
+      order as 'asc' | 'desc',
+      filter as 'all' | 'complete' | 'incomplete',
+    );
   };
 
   return (
@@ -30,4 +28,4 @@ const ButtonSort: React.FC<ButtonSortProps> = ({ onSortChange }) => {
   );
 };
 
-export default ButtonSort;
+export default SortTodosListButton;

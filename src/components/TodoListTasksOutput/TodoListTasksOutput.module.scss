@@ -5,7 +5,6 @@
   height: 50px;
   border: none;
   border-radius: 30px;
-
   border-color: aliceblue;
   background-image: url("../../../public/Img/Plus.svg");
   background-repeat: no-repeat;
@@ -25,7 +24,6 @@
   width: 520px;
   height: 545px;
   transform: translate(-60%, -50%);
-
   background-color: var(--ParentComponent-background-color);
   border: none;
   padding: 0;
@@ -35,9 +33,7 @@
 .inputCheckbox {
   width: 26px;
   height: 26px;
-
   background-color: var(--ParentComponent-background-color);
-
   background-repeat: no-repeat;
   background-position: center;
   margin-right: 10px;
@@ -48,14 +44,6 @@
 .selected {
   text-decoration: line-through;
   color: rgb(110, 108, 108);
-}
-
-.taskItem {
-  display: flex;
-  align-items: center;
-  border-bottom: 2px solid #429bdf;
-  padding-bottom: 0;
-  margin-bottom: 10px;
 }
 
 .taska {
@@ -76,18 +64,22 @@
 .deleteTaskContainer {
   display: flex;
   justify-content: flex-end;
-  width: 100%;
   cursor: pointer;
 }
 
+.editButton, .deleteTask {
+  margin-right: 10px;
+}
+
 .deleteTask {
-  width: 18px;
-  height: 18px;
+  margin-right: 0;
+}
+
+.deleteTask {
+  width: 26px;
+  height: 26px;
   fill: rgba(0, 0, 0, 0.12);
   cursor: pointer;
-  margin-left: auto;
-  margin-bottom: 0;
-  margin-top: 10px;
 }
 
 .blocktaska {
@@ -128,7 +120,6 @@
 .knopka {
   position: fixed;
   bottom: 80px;
-
   top: -500px;
   left: -65px;
 }
@@ -136,7 +127,6 @@
 .tabTaska {
   width: 300px;
   height: 180px;
-
   background-color: rgba(253, 253, 253, 0);
   position: fixed;
   top: 0;
@@ -146,6 +136,8 @@
 }
 
 .taskItem {
+  display: flex;
+  align-items: flex-end;
   border-bottom: 1px solid;
   color: var(--taskItem-color);
   border-color: var(--taskItem-border-color);
@@ -157,21 +149,20 @@
   color: var(--tabTaska-color);
 }
 
-.izButton {
-  width: 20px;
-  height: 20px;
+.editButton {
+  width: 26px;
+  height: 26px;
   background-image: url("../../../public/Img/IzmTaska.svg");
   background-color: rgba(110, 108, 108, 0);
   background-repeat: no-repeat;
-  background-position: center;
   border: none;
-  margin-left: 400px;
   border-radius: 4px;
   padding: 5px 10px;
   cursor: pointer;
+
 }
 
-.inputIzmTas {
+.inputEditTasK {
   width: 250px;
   height: 5px;
   display: flex;
@@ -180,7 +171,6 @@
   padding: 10px;
   border-bottom: 1px solid #ddd;
   margin-left: 0;
-
   z-index: 3000;
 }
 
@@ -195,24 +185,6 @@
   position: relative;
 }
 
-.sbutton {
-  background-color: #6c63ff;
-  padding: 10px;
-  width: 100px;
-
-  height: 38px;
-  border-radius: 5px;
-  margin-left: 15px;
-  border: none;
-  overflow: visible;
-  position: relative;
-  z-index: 1000;
-  background-image: url("../../../public/Img/strelka.svg");
-  background-repeat: no-repeat;
-  background-position: right 0.7em center;
-  background-size: 0.65em auto;
-}
-
 .completedTask {
   text-decoration: line-through;
 }
@@ -220,3 +192,53 @@
 .buttonSort {
   margin-left: -100px;
 }
+
+.taskText {
+  width: 400px;
+  color: var(--taskItem-color);
+  padding: 5px;
+  border-radius: 4px;
+  z-index: 1000;
+}
+
+.completedTask {
+  text-decoration: line-through;
+  color: #888;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

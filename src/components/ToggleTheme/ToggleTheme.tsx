@@ -1,20 +1,20 @@
-import React, { useEffect } from "react";
-import styles from "./ToggleTheme.module.scss";
-import { THEME_LOCAL_STORAGE_KEY } from "./constants";
+import React, { useEffect } from 'react';
+import styles from './ToggleTheme.module.scss';
+import { THEME_LOCAL_STORAGE_KEY } from './constants';
 
 const ToggleTheme: React.FC = () => {
   const setDarkMode = () => {
-    document.body.setAttribute("data-theme", "dark");
-    localStorage.setItem(THEME_LOCAL_STORAGE_KEY, "dark");
+    document.body.setAttribute('data-theme', 'dark');
+    localStorage.setItem(THEME_LOCAL_STORAGE_KEY, 'dark');
   };
   const setLightMode = () => {
-    document.body.setAttribute("data-theme", "light");
-    localStorage.setItem(THEME_LOCAL_STORAGE_KEY, "light");
+    document.body.setAttribute('data-theme', 'light');
+    localStorage.setItem(THEME_LOCAL_STORAGE_KEY, 'light');
   };
 
   useEffect(() => {
     const selectedTheme = localStorage.getItem(THEME_LOCAL_STORAGE_KEY);
-    if (selectedTheme === "dark") {
+    if (selectedTheme === 'dark') {
       setDarkMode();
     } else {
       setLightMode();
@@ -37,13 +37,10 @@ const ToggleTheme: React.FC = () => {
         id="darkmode-toggle"
         onChange={toggleTheme}
         defaultChecked={
-          localStorage.getItem(THEME_LOCAL_STORAGE_KEY) === "dark"
+          localStorage.getItem(THEME_LOCAL_STORAGE_KEY) === 'dark'
         }
       />
-      <label
-        className={styles.dark_mode_label}
-        htmlFor="darkmode-toggle"
-      ></label>
+      <label className={styles.dark_mode_label} htmlFor="darkmode-toggle" />
     </div>
   );
 };

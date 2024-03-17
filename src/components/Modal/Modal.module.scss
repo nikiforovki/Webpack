@@ -12,7 +12,7 @@
   border: 2px solid #fdfdfd;
 }
 
-.h1 {
+.title {
   color: var(--h1-color);
   text-align: center;
   margin-top: -10px;
@@ -61,4 +61,7 @@
 .errorMessage {
   color: red;
   margin-top: 10px;
+  text-align: center;
 }
+
+

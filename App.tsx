@@ -1,34 +1,35 @@
-import React, { useState } from "react";
-import styles from "./src/styles/index.module.scss";
-import { Header } from "./src/components/Header/header";
-import { TasksOutput } from "./src/components/TasksOutput/TasksOutput";
+import React, { useState } from 'react';
+import styles from './src/styles/index.module.scss';
+import { TodosHeader } from './src/components/TodosHeader/TodosHeader';
+import { TodoListTasksOutput } from './src/components/TodoListTasksOutput/TodoListTasksOutput';
+import { Task } from './src/components/TodoListTasksOutput/TodoListTasksOutput';
 
 const App: React.FC = () => {
-  const [modalActive, setModalActive] = useState(false);
-  const [taskToUpdate, setTaskToUpdate] = useState(null);
+  const [taskToUpdate, setTaskToUpdate] = useState<null | string>(null);
+  const [isModalActive, setisModalActive] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [tasks, setTasks] = useState<Task[]>([]);
   const [isAlertOpen, setIsAlertOpen] = useState(false);
 
-  const handleNewTask = (newTask: Task) => {
+  const handleAddNewTask = (newTask: Task) => {
     setTasks([...tasks, newTask]);
     setIsAlertOpen(true);
   };
 
-  const closeModal = () => {
-    setModalActive(false);
+  const handleCloseModa = () => {
+    setisModalActive(false);
   };
 
-  const closeAlert = () => {
+  const hadleCloseAddTaskAlert = () => {
     setIsAlertOpen(false);
   };
 
   return (
     <div className={styles.App}>
-      <Header />
-      <TasksOutput />
+      <TodosHeader />
+      <TodoListTasksOutput />
     </div>
   );
 };

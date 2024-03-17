@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { Modal } from "../Modal/Modal";
-import styles from "./TasksOutput.module.scss";
-import DeleteTaskImage from "../../../public/Img/DeleteTaskImage";
-import { AlertModal } from "../Alert/Alert";
-import ToggleDelete from "../ToggleDeleteAllTask/ToggleDeleteAllTask";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState, AppDispatch } from "../../redux/store/store";
-import { ADD_TASK, DELETE_TASK } from "../../redux/Actions/actions";
-import { deleteTaskAction } from "../../redux/Actions/actions";
-
-import ButtonSort from "../ButtonSort/ButtonSort";
+import React, { useState, useEffect } from 'react';
+import { Modal } from '../Modal/Modal';
+import styles from './TodoListTasksOutput.module.scss';
+import DeleteTaskImage from '../../../public/Img/DeleteTaskImage';
+import { SuccessAddedTaskModal } from '../SuccessAddedTaskModal/SuccessAddedTaskModal';
+import ToggleDelete from '../ToggleDeleteAllTask/ToggleDeleteAllTask';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState, AppDispatch } from '../../redux/store/store';
+import { ADD_TASK, DELETE_TASK } from '../../redux/Actions/actions';
+import { deleteTaskAction } from '../../redux/Actions/actions';
+import SortTodosListButton from '../SortTodosListButton/SortTodosListButton';
+import { v4 as uuidv4 } from 'uuid';
 
 interface Task {
   id: string;
@@ -17,14 +17,15 @@ interface Task {
   isCompleted: boolean;
 }
 
-export const TasksOutput: React.FC = () => {
+export const TodoListTasksOutput: React.FC = () => {
   const [modalTasks, setModalTasks] = useState<Task[]>([]);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isAlertOpen, setIsAlertOpen] = useState<boolean>(false);
-  const [alertMessage, setAlertMessage] = useState<string>("");
-  const [editValue, setEditValue] = useState("");
+  const [alertMessage, setAlertMessage] = useState<string>('');
+  const [taskEditValue, setTaskEditValue] = useState('');
   const [activeTaskIndex, setActiveTaskIndex] = useState<number | null>(null);
-  const [isEditConfirmOpen, setIsEditConfirmOpen] = useState<boolean>(false);
+  const [isEditModalConfirmOpen, setIsEditConfirmOpen] =
+    useState<boolean>(false);
 
   const dispatch = useDispatch<AppDispatch>();
   const tasks = useSelector((state: RootState) => state.tasks);
@@ -32,19 +33,19 @@ export const TasksOutput: React.FC = () => {
   const [deletedTasks, setDeletedTasks] = useState<Task[]>([]);
 
   useEffect(() => {
-    const savedTasks = localStorage.getItem("tasks");
+    const savedTasks = localStorage.getItem('tasks');
     if (savedTasks) {
       setModalTasks(JSON.parse(savedTasks));
     }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("tasks", JSON.stringify(modalTasks));
-    localStorage.setItem("deletedTasks", JSON.stringify(deletedTasks));
+    localStorage.setItem('tasks', JSON.stringify(modalTasks));
+    localStorage.setItem('deletedTasks', JSON.stringify(deletedTasks));
   }, [modalTasks, deletedTasks]);
 
   useEffect(() => {
-    const savedCompletedTasks = localStorage.getItem("completedTasks");
+    const savedCompletedTasks = localStorage.getItem('completedTasks');
     if (savedCompletedTasks) {
       try {
         const parsedTasks = JSON.parse(savedCompletedTasks) as Task[];
@@ -60,27 +61,27 @@ export const TasksOutput: React.FC = () => {
         });
       } catch (error) {
         console.error(
-          "Ошибка при загрузке выполненных задач из localStorage:",
-          error
+          'Ошибка при загрузке выполненных задач из localStorage:',
+          error,
         );
       }
     }
   }, [dispatch]);
 
-  const handleUpdate = (task: Task, newTask: string) => {
+  const updateTaskDetails = (task: Task, newTask: string) => {
     const index = modalTasks.findIndex((t) => t.id === task.id);
     if (index > -1) {
-      const updatedTasks = modalTasks.map((t, i) =>
-        i === index ? { ...t, text: newTask } : t
+      const updatedTasks = modalTasks.map((task, i) =>
+        i === index ? { ...task, text: newTask } : task,
       );
       setModalTasks(updatedTasks);
-      localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+      localStorage.setItem('tasks', JSON.stringify(updatedTasks));
     }
   };
 
-  const handleModalTask = (taskText: string) => {
+  const handleAddTask = (taskText: string) => {
     const newTask: Task = {
-      id: Date.now().toString(),
+      id: uuidv4(),
       text: taskText,
       isCompleted: false,
     };
@@ -88,7 +89,7 @@ export const TasksOutput: React.FC = () => {
 
     setModalTasks((prevTasks) => {
       const updatedTasks = [...prevTasks, newTask];
-      localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+      localStorage.setItem('tasks', JSON.stringify(updatedTasks));
       return updatedTasks;
     });
     setAlertMessage(`Задача "${taskText}" добавлена`);
@@ -96,18 +97,18 @@ export const TasksOutput: React.FC = () => {
     setIsModalOpen(false);
   };
 
-  const toggleModal = () => {
+  const handleToggleVisiblityModal = () => {
     setIsModalOpen((prevState) => !prevState);
   };
 
   const saveCompletedTasksToLocalStorage = (completedTasks: Task[]) => {
     try {
       const serializedTasks = JSON.stringify(completedTasks);
-      localStorage.setItem("completedTasks", serializedTasks);
+      localStorage.setItem('completedTasks', serializedTasks);
     } catch (error) {
       console.error(
-        "Ошибка при сохранении выполненных задач в localStorage:",
-        error
+        'Ошибка при сохранении выполненных задач в localStorage:',
+        error,
       );
     }
   };
@@ -115,7 +116,7 @@ export const TasksOutput: React.FC = () => {
   const handleCheckboxChange = (index: number, task: Task) => {
     setModalTasks((prevTasks) => {
       const updatedTasks = prevTasks.map((t, i) =>
-        i === index ? { ...t, isCompleted: !t.isCompleted } : t
+        i === index ? { ...t, isCompleted: !t.isCompleted } : t,
       );
       const completedTasks = updatedTasks.filter((task) => task.isCompleted);
       saveCompletedTasksToLocalStorage(completedTasks);
@@ -123,7 +124,7 @@ export const TasksOutput: React.FC = () => {
     });
   };
 
-  const deleteTask = (taskId: string) => {
+  const handleDeleteTask = (taskId: string) => {
     dispatch(deleteTaskAction(taskId));
 
     setModalTasks((prevTasks) => {
@@ -132,8 +133,8 @@ export const TasksOutput: React.FC = () => {
         const updatedTasks = prevTasks.filter((task) => task.id !== taskId);
         setDeletedTasks((deletedTasks) => [...deletedTasks, taskToDelete]);
         localStorage.setItem(
-          "deletedTasks",
-          JSON.stringify([...deletedTasks, taskToDelete])
+          'deletedTasks',
+          JSON.stringify([...deletedTasks, taskToDelete]),
         );
         return updatedTasks;
       }
@@ -150,19 +151,19 @@ export const TasksOutput: React.FC = () => {
   const allTasks = [...modalTasks, ...deletedTasks];
 
   const sortTasks = (
-    order: "asc" | "desc",
-    filter?: "all" | "complete" | "incomplete"
+    order: 'asc' | 'desc',
+    filter?: 'all' | 'complete' | 'incomplete',
   ) => {
     let sortedTasks = [...modalTasks];
     if (filter) {
-      if (filter === "complete") {
+      if (filter === 'complete') {
         sortedTasks = sortedTasks.filter((task) => task.isCompleted);
-      } else if (filter === "incomplete") {
+      } else if (filter === 'incomplete') {
         sortedTasks = sortedTasks.filter((task) => !task.isCompleted);
       }
     }
     sortedTasks.sort((a, b) => {
-      if (order === "asc") {
+      if (order === 'asc') {
         return a.text.localeCompare(b.text);
       } else {
         return b.text.localeCompare(a.text);
@@ -171,26 +172,26 @@ export const TasksOutput: React.FC = () => {
     setModalTasks(sortedTasks);
   };
 
-  const openEditConfirm = () => {
+  const handleOpenEditConfirmModal = () => {
     setIsEditConfirmOpen(true);
   };
 
-  const confirmEdit = () => {
-    if (activeTaskIndex !== null && editValue) {
+  const handleConfirmModalEdit = () => {
+    if (activeTaskIndex !== null && taskEditValue) {
       const taskToUpdate = modalTasks[activeTaskIndex];
-      handleUpdate(taskToUpdate, editValue);
+      updateTaskDetails(taskToUpdate, taskEditValue);
       setActiveTaskIndex(null);
-      setEditValue("");
+      setTaskEditValue('');
       setIsEditConfirmOpen(false);
     }
   };
 
   return (
     <div className={styles.content}>
-      <ButtonSort onSortChange={sortTasks} />
+      <SortTodosListButton onSortChange={sortTasks} />
       <div className={styles.alertContainer}>
         {isAlertOpen && (
-          <AlertModal
+          <SuccessAddedTaskModal
             message={alertMessage}
             isOpen={isAlertOpen}
             closeAlert={() => setIsAlertOpen(false)}
@@ -198,53 +199,62 @@ export const TasksOutput: React.FC = () => {
         )}
       </div>
       {isModalOpen && (
-        <Modal onNewTask={handleModalTask} closeModal={toggleModal} />
+        <Modal
+          onNewTask={handleAddTask}
+          closeModal={handleToggleVisiblityModal}
+        />
       )}
-      <button className={styles.toggleModal} onClick={toggleModal}></button>
+      <button
+        className={styles.toggleModal}
+        onClick={handleToggleVisiblityModal}
+      ></button>
       <div className={styles.wrapper}>
         <div className={styles.okno}>
           <div>
             {modalTasks.map((task, index) => (
               <div key={task.id} className={styles.taskItem}>
                 <input
-                  type="checkbox"
+                  type='checkbox'
                   className={styles.inputCheckbox}
                   checked={task.isCompleted}
                   onChange={() => handleCheckboxChange(index, task)}
                 />
                 {activeTaskIndex === index ? (
-                  <div className={styles.inputContainer}>
+                  <div className={styles.flexСonteiner}>
                     <input
-                      className={styles.inputIzmTas}
-                      type="text"
-                      value={editValue}
-                      onChange={(e) => setEditValue(e.target.value)}
-                      onBlur={openEditConfirm}
+                      className={styles.inputEditTasK}
+                      type='text'
+                      value={taskEditValue}
+                      onChange={(e) => setTaskEditValue(e.target.value)}
+                      onBlur={handleOpenEditConfirmModal}
                       autoFocus
                     />
                     <button
                       className={styles.confirmButton}
-                      onClick={confirmEdit}
+                      onClick={handleConfirmModalEdit}
                     >
                       Подтвердить
                     </button>
                   </div>
                 ) : (
-                  <>
+                  <div
+                    className={`${styles.taskText} ${task.isCompleted ? styles.completedTask : ''}`}
+                  >
                     {task.text}
-                    <button
-                      className={styles.izButton}
-                      onClick={() => {
-                        setEditValue(task.text);
-                        setActiveTaskIndex(index);
-                      }}
-                    ></button>
-                  </>
+                  </div>
                 )}
                 <div
                   className={styles.deleteTaskContainer}
-                  onClick={() => deleteTask(task.id)}
+                  onClick={() => handleDeleteTask(task.id)}
                 >
+                  <button
+                    className={styles.editButton}
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      setTaskEditValue(task.text);
+                      setActiveTaskIndex(index);
+                    }}
+                  ></button>
                   <DeleteTaskImage className={styles.deleteTask} />
                 </div>
               </div>
@@ -252,19 +262,19 @@ export const TasksOutput: React.FC = () => {
           </div>
           <ToggleDelete onDelete={deleteAllTasks} className={styles.knopka} />
         </div>
-        <div className={styles.tabTaska}>
-          <p className={styles.taskItem}>
-            Общие колличество задач: {modalTasks.length}
-          </p>
-          <p className={styles.taskItem}>
-            Активные задачи:{" "}
-            {modalTasks.filter((task) => !task.isCompleted).length}
-          </p>
-          <p className={styles.taskItem}>
-            Выполненые задачи:{" "}
-            {modalTasks.filter((task) => task.isCompleted).length}
-          </p>
-        </div>
+      </div>
+      <div className={styles.tabTaska}>
+        <p className={styles.taskItem}>
+          Общие колличество задач: {modalTasks.length}
+        </p>
+        <p className={styles.taskItem}>
+          Активные задачи:{' '}
+          {modalTasks.filter((task) => !task.isCompleted).length}
+        </p>
+        <p className={styles.taskItem}>
+          Выполненые задачи:{' '}
+          {modalTasks.filter((task) => task.isCompleted).length}
+        </p>
       </div>
     </div>
   );
