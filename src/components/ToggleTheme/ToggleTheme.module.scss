@@ -1,7 +1,6 @@
 .dark_mode {
-  margin-top: -20px;
-  margin-left: 150px;
-  margin-right: -20px;
+  margin-top: -60px;
+  margin-left: 700px;
 }
 
 .dark_mode_label {
@@ -11,14 +10,15 @@
   display: block;
   background: #ebebeb;
   border-radius: 200px;
-  box-shadow: inset 0px 5px 15px rgba(110, 108, 108, 0),
+  box-shadow:
+    inset 0px 5px 15px rgba(110, 108, 108, 0),
     inset 0px -5px 15px rgb(108, 99, 255);
   cursor: pointer;
   transition: 0.6s;
 }
 
 .dark_mode_label:after {
-  content: "";
+  content: '';
   width: 25px;
   height: 25px;
   position: absolute;

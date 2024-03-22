@@ -1,7 +1,7 @@
 .button {
   background-color: #6c63ff;
   padding: 10px;
-  width: 120px;
+  width: 90px;
   height: 38px;
   border-radius: 5px;
   margin-left: 580px;
@@ -9,9 +9,9 @@
   overflow: visible;
   position: fixed;
   top: 88px;
-  left: 320px;
+  left: 350px;
   z-index: 1000;
-  background-image: url("../../../public/Img/strelka.svg");
+  background-image: url('../../../public/Img/ArrowIcon.svg');
   background-repeat: no-repeat;
   background-position: right 0.7em center;
   background-size: 0.65em auto;
@@ -36,7 +36,7 @@
 }
 
 .select::after {
-  content: "";
+  content: '';
   position: absolute;
   right: 10px;
   margin-left: 200px;

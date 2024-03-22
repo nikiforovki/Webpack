@@ -6,7 +6,7 @@
   border: none;
   border-radius: 30px;
   border-color: aliceblue;
-  background-image: url("../../../public/Img/Plus.svg");
+  background-image: url('../../../public/Img/Plus.svg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: 21px;
@@ -17,7 +17,7 @@
   cursor: pointer;
 }
 
-.okno {
+.DisplayingTaskList {
   position: absolute;
   top: 450px;
   left: 700px;
@@ -67,7 +67,7 @@
   cursor: pointer;
 }
 
-.editButton, .deleteTask {
+.deleteTask {
   margin-right: 10px;
 }
 
@@ -80,10 +80,6 @@
   height: 26px;
   fill: rgba(0, 0, 0, 0.12);
   cursor: pointer;
-}
-
-.blocktaska {
-  width: 520px;
 }
 
 .addedTaskMessage {
@@ -102,7 +98,7 @@
   background-color: #fff;
   padding: 20px;
   border-radius: 5px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 10px rgb(108, 99, 255);
 }
 
 .alertModal p {
@@ -117,14 +113,14 @@
   cursor: pointer;
 }
 
-.knopka {
+.deleteTaskButton {
   position: fixed;
   bottom: 80px;
   top: -500px;
   left: -65px;
 }
 
-.tabTaska {
+.taskCollectorWrapper {
   width: 300px;
   height: 180px;
   background-color: rgba(253, 253, 253, 0);
@@ -135,9 +131,17 @@
   margin-left: 18px;
 }
 
-.taskItem {
+.taskDisplays {
   display: flex;
   align-items: flex-end;
+  border-bottom: 1px solid;
+  color: var(--taskDisplays-color);
+  border-color: var(--taskDisplays-border-color);
+  padding: 8px 0;
+  font-size: 20px;
+}
+
+.tasksStat {
   border-bottom: 1px solid;
   color: var(--taskItem-color);
   border-color: var(--taskItem-border-color);
@@ -145,24 +149,20 @@
   font-size: 20px;
 }
 
-.tabTaska {
-  color: var(--tabTaska-color);
-}
-
 .editButton {
   width: 26px;
   height: 26px;
-  background-image: url("../../../public/Img/IzmTaska.svg");
+  background-image: url('../../../public/Img/TaskChangesIcon.svg');
   background-color: rgba(110, 108, 108, 0);
   background-repeat: no-repeat;
   border: none;
   border-radius: 4px;
   padding: 5px 10px;
   cursor: pointer;
-
+  margin-right: 10px;
 }
 
-.inputEditTasK {
+.inputEditTask {
   width: 250px;
   height: 5px;
   display: flex;
@@ -205,40 +205,3 @@
   text-decoration: line-through;
   color: #888;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,28 +1,30 @@
 import React from 'react';
 import styles from './SortTodosListButton.module.scss';
-
-interface ButtonSortProps {
-  onSortChange: (
-    order: 'asc' | 'desc',
-    filter?: 'all' | 'complete' | 'incomplete',
-  ) => void;
-}
+import { ButtonSortProps } from './SortTodosListButtonTypes';
 
 const SortTodosListButton: React.FC<ButtonSortProps> = ({ onSortChange }) => {
   const handleSortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const [order, filter] = event.target.value.split('-');
-    onSortChange?.(
-      order as 'asc' | 'desc',
-      filter as 'all' | 'complete' | 'incomplete',
-    );
+    const filter = event.target.value;
+
+    if (filter !== 'all' && filter !== 'complete' && filter !== 'incomplete') {
+      console.error('Неверное значение filter');
+      return;
+    }
+    if (filter === 'complete') {
+      onSortChange('complete');
+    } else if (filter === 'incomplete') {
+      onSortChange('incomplete');
+    } else {
+      onSortChange('all');
+    }
   };
 
   return (
     <button className={styles.button}>
       <select className={styles.select} onChange={handleSortChange}>
-        <option value="asc-all">Все</option>
-        <option value="asc-complete">Завершенные</option>
-        <option value="desc-incomplete">Не завершенные</option>
+        <option value='all'>Все</option>
+        <option value='complete'>Завершенные</option>
+        <option value='incomplete'>Не завершенные</option>
       </select>
     </button>
   );

@@ -1,17 +1,16 @@
-import React, { useState } from "react";
-import styles from "./Task.module.scss";
+import React, { useState } from 'react';
 
 interface Task {
   id: string;
   text: string;
 }
 
-type OnEditComplete = (newTaskText: string) => void;
-
-export const Task: React.FC<{
+type Props = {
   task: Task;
-  onEditComplete: OnEditComplete;
-}> = ({ task, onEditComplete }) => {
+  onEditComplete: (newTaskText: string) => void;
+};
+
+export const Task: React.FC<Props> = ({ task, onEditComplete }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editValue, setEditValue] = useState(task.text);
 
@@ -32,7 +31,7 @@ export const Task: React.FC<{
     <div>
       {isEditing ? (
         <input
-          type="text"
+          type='text'
           value={editValue}
           onChange={handleInputChange}
           onBlur={handleInputBlur}

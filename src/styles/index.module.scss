@@ -2,7 +2,7 @@
   --header-background-color: #fdfdfd;
   --header-text-color: #0e0d0d;
 
-  --ParentComponent-background-color: #ffffff;
+  --ParentComponent-background-color: rgba(247, 247, 247, 0);
   --ParentComponent-text-color: #101010;
 
   --body-background: white;
@@ -15,21 +15,17 @@
 
   --h1-color: black;
 
-  --input-border-color:#429bdf
+  --input-border-color: #6c63ff (--textAlert-background-color: black);
 
-  --textAlert-background-color: black;
-
-  --tabTaska-border-color: #6c63ff;
+  --tasksStat-border-color: #6c63ff;
   --taskItem-border-color: #6c63ff;
 
-  --tabTaska-color:#6c63ff;
+  --tasksStat-color: #6c63ff;
 
-  --taskItem-color: #101010;
-
+  --taskItem-color: #6c63ff;
 }
 
 [data-theme='dark'] {
-
   --header-background-color: rgba(16, 16, 16, 0.86);
   --header-text-color: #ffffff;
 
@@ -43,31 +39,53 @@
 
   --h1-color: #fdfdfd;
 
-  --input-border-color: #ffffff
+  --input-border-color: #ffffff (--textAlert-background-color: #fdfdfd);
 
-  --textAlert-background-color: #fdfdfd;
-
-  --tabTaska-border-color: rgba(253, 253, 253, 0.97);
+  --tasksStat-border-color: rgb(108, 99, 255);
   --taskItem-border-color: rgba(253, 253, 253, 0.97);
 
-  --tabTaska-color: #fdfdfd;
-  --taskItem-color: #fdfdfd;
+  --tasksStat-color: #6c63ff;
+  --taskItem-color: #ffffff;
+
+  --taskDisplays-color: #6e6c6c;
+}
+
+[data-theme='light'] {
+  --header-background-color: rgb(247, 247, 247);
+  --header-text-color: #101010;
+
+  --ParentComponent-background-color: rgb(253, 253, 253);
+  --ParentComponent-text-color: #101010;
+
+  --app-background-color: rgb(253, 253, 253);
+
+  --modal_content-background-color: #f7f7f7;
+  --modal_content-border-color: #6c63ff;
+
+  --h1-color: #101010;
+
+  --input-border-color: #6c63ff (--textAlert-background-color: #fdfdfd);
+
+  --tasksStat-border-color: rgb(108, 99, 255);
+  --taskItem-border-color: rgb(108, 99, 255);
+
+  --tasksStat-color: #6c63ff;
+  --taskItem-color: #101010;
+
+  --taskDisplays-color: #6c63ff;
 }
 
 .App {
   display: flex;
   justify-content: center;
   align-items: center;
-  height:  100vh;
-  width:  100vw;
+  height: 100vh;
+  width: 100vw;
   background-color: var(--app-background-color);
 }
 
-html, body {
-  margin:  0;
-  padding:  0;
-
-
+html,
+body {
+  margin: 0;
+  padding: 0;
 }
-
-

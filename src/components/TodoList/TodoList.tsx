@@ -1,24 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { Modal } from '../Modal/Modal';
-import styles from './TodoListTasksOutput.module.scss';
-import DeleteTaskImage from '../../../public/Img/DeleteTaskImage';
+import styles from './TodoList.module.scss';
+import TaskDeletionIcon from '../../../public/Img/TaskDeletionIcon';
 import { SuccessAddedTaskModal } from '../SuccessAddedTaskModal/SuccessAddedTaskModal';
-import ToggleDelete from '../ToggleDeleteAllTask/ToggleDeleteAllTask';
+import DeleteAllTasksButton from '../DeleteAllTasksButton/DeleteAllTasksButton';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, AppDispatch } from '../../redux/store/store';
 import { ADD_TASK, DELETE_TASK } from '../../redux/Actions/actions';
 import { deleteTaskAction } from '../../redux/Actions/actions';
 import SortTodosListButton from '../SortTodosListButton/SortTodosListButton';
 import { v4 as uuidv4 } from 'uuid';
+import { Task } from './types';
+import { useLocalStorage } from '../../local-storage/useLocalStorage';
 
-interface Task {
-  id: string;
-  text: string;
-  isCompleted: boolean;
-}
-
-export const TodoListTasksOutput: React.FC = () => {
-  const [modalTasks, setModalTasks] = useState<Task[]>([]);
+export const TodoList: React.FC = () => {
+  const [modalTasks, setModalTasks] = useLocalStorage('tasks', []);
+  const [deletedTasks, setDeletedTasks] = useLocalStorage('deletedTasks', []);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isAlertOpen, setIsAlertOpen] = useState<boolean>(false);
   const [alertMessage, setAlertMessage] = useState<string>('');
@@ -29,8 +26,6 @@ export const TodoListTasksOutput: React.FC = () => {
 
   const dispatch = useDispatch<AppDispatch>();
   const tasks = useSelector((state: RootState) => state.tasks);
-
-  const [deletedTasks, setDeletedTasks] = useState<Task[]>([]);
 
   useEffect(() => {
     const savedTasks = localStorage.getItem('tasks');
@@ -50,7 +45,7 @@ export const TodoListTasksOutput: React.FC = () => {
       try {
         const parsedTasks = JSON.parse(savedCompletedTasks) as Task[];
 
-        setModalTasks((prevTasks) => {
+        setModalTasks((prevTasks: Task[]) => {
           return prevTasks.map((task) => {
             const completedTask = parsedTasks.find((t) => t.id === task.id);
             if (completedTask) {
@@ -69,9 +64,9 @@ export const TodoListTasksOutput: React.FC = () => {
   }, [dispatch]);
 
   const updateTaskDetails = (task: Task, newTask: string) => {
-    const index = modalTasks.findIndex((t) => t.id === task.id);
+    const index = modalTasks.findIndex((t: Task) => t.id === task.id);
     if (index > -1) {
-      const updatedTasks = modalTasks.map((task, i) =>
+      const updatedTasks = modalTasks.map((task: Task, i: number) =>
         i === index ? { ...task, text: newTask } : task,
       );
       setModalTasks(updatedTasks);
@@ -87,7 +82,7 @@ export const TodoListTasksOutput: React.FC = () => {
     };
     dispatch({ type: ADD_TASK, payload: newTask });
 
-    setModalTasks((prevTasks) => {
+    setModalTasks((prevTasks: Task[]) => {
       const updatedTasks = [...prevTasks, newTask];
       localStorage.setItem('tasks', JSON.stringify(updatedTasks));
       return updatedTasks;
@@ -113,8 +108,8 @@ export const TodoListTasksOutput: React.FC = () => {
     }
   };
 
-  const handleCheckboxChange = (index: number, task: Task) => {
-    setModalTasks((prevTasks) => {
+  const handleTaskIsCompleted = (index: number, task: Task) => {
+    setModalTasks((prevTasks: Task[]) => {
       const updatedTasks = prevTasks.map((t, i) =>
         i === index ? { ...t, isCompleted: !t.isCompleted } : t,
       );
@@ -127,11 +122,14 @@ export const TodoListTasksOutput: React.FC = () => {
   const handleDeleteTask = (taskId: string) => {
     dispatch(deleteTaskAction(taskId));
 
-    setModalTasks((prevTasks) => {
+    setModalTasks((prevTasks: Task[]) => {
       const taskToDelete = prevTasks.find((task) => task.id === taskId);
       if (taskToDelete) {
         const updatedTasks = prevTasks.filter((task) => task.id !== taskId);
-        setDeletedTasks((deletedTasks) => [...deletedTasks, taskToDelete]);
+        setDeletedTasks((deletedTasks: Task[]) => [
+          ...deletedTasks,
+          taskToDelete,
+        ]);
         localStorage.setItem(
           'deletedTasks',
           JSON.stringify([...deletedTasks, taskToDelete]),
@@ -150,30 +148,20 @@ export const TodoListTasksOutput: React.FC = () => {
 
   const allTasks = [...modalTasks, ...deletedTasks];
 
-  const sortTasks = (
-    order: 'asc' | 'desc',
-    filter?: 'all' | 'complete' | 'incomplete',
-  ) => {
-    let sortedTasks = [...modalTasks];
-    if (filter) {
-      if (filter === 'complete') {
-        sortedTasks = sortedTasks.filter((task) => task.isCompleted);
-      } else if (filter === 'incomplete') {
-        sortedTasks = sortedTasks.filter((task) => !task.isCompleted);
-      }
-    }
-    sortedTasks.sort((a, b) => {
-      if (order === 'asc') {
-        return a.text.localeCompare(b.text);
-      } else {
-        return b.text.localeCompare(a.text);
-      }
+  const sortTasksCompletedFirst = () => {
+    const sortedTasks = [...modalTasks].sort((a, b) => {
+      return Number(b.isCompleted) - Number(a.isCompleted);
     });
+
     setModalTasks(sortedTasks);
   };
 
-  const handleOpenEditConfirmModal = () => {
-    setIsEditConfirmOpen(true);
+  const sortTasksNotCompletedFirst = () => {
+    const sortedTasks = [...modalTasks].sort((a, b) => {
+      return Number(a.isCompleted) - Number(b.isCompleted);
+    });
+
+    setModalTasks(sortedTasks);
   };
 
   const handleConfirmModalEdit = () => {
@@ -188,7 +176,7 @@ export const TodoListTasksOutput: React.FC = () => {
 
   return (
     <div className={styles.content}>
-      <SortTodosListButton onSortChange={sortTasks} />
+      <SortTodosListButton onSortChange={sortTasksCompletedFirst} />
       <div className={styles.alertContainer}>
         {isAlertOpen && (
           <SuccessAddedTaskModal
@@ -200,7 +188,7 @@ export const TodoListTasksOutput: React.FC = () => {
       </div>
       {isModalOpen && (
         <Modal
-          onNewTask={handleAddTask}
+          handleAddNewTask={handleAddTask}
           closeModal={handleToggleVisiblityModal}
         />
       )}
@@ -209,24 +197,24 @@ export const TodoListTasksOutput: React.FC = () => {
         onClick={handleToggleVisiblityModal}
       ></button>
       <div className={styles.wrapper}>
-        <div className={styles.okno}>
+        <div className={styles.DisplayingTaskList}>
           <div>
-            {modalTasks.map((task, index) => (
-              <div key={task.id} className={styles.taskItem}>
+            {modalTasks.map((task: Task, index: number) => (
+              <div key={task.id} className={styles.taskDisplays}>
                 <input
                   type='checkbox'
                   className={styles.inputCheckbox}
                   checked={task.isCompleted}
-                  onChange={() => handleCheckboxChange(index, task)}
+                  onChange={() => handleTaskIsCompleted(index, task)}
                 />
                 {activeTaskIndex === index ? (
                   <div className={styles.flexСonteiner}>
                     <input
-                      className={styles.inputEditTasK}
+                      className={styles.inputEditTask}
                       type='text'
                       value={taskEditValue}
                       onChange={(e) => setTaskEditValue(e.target.value)}
-                      onBlur={handleOpenEditConfirmModal}
+                      onBlur={sortTasksCompletedFirst}
                       autoFocus
                     />
                     <button
@@ -255,25 +243,28 @@ export const TodoListTasksOutput: React.FC = () => {
                       setActiveTaskIndex(index);
                     }}
                   ></button>
-                  <DeleteTaskImage className={styles.deleteTask} />
+                  <TaskDeletionIcon className={styles.deleteTask} />
                 </div>
               </div>
             ))}
           </div>
-          <ToggleDelete onDelete={deleteAllTasks} className={styles.knopka} />
+          <DeleteAllTasksButton
+            onDeleteTask={deleteAllTasks}
+            className={styles.deleteTaskButton}
+          />
         </div>
       </div>
-      <div className={styles.tabTaska}>
-        <p className={styles.taskItem}>
+      <div className={styles.taskCollectorWrapper}>
+        <p className={styles.tasksStat}>
           Общие колличество задач: {modalTasks.length}
         </p>
-        <p className={styles.taskItem}>
+        <p className={styles.tasksStat}>
           Активные задачи:{' '}
-          {modalTasks.filter((task) => !task.isCompleted).length}
+          {modalTasks.filter((task: Task) => !task.isCompleted).length}
         </p>
-        <p className={styles.taskItem}>
+        <p className={styles.tasksStat}>
           Выполненые задачи:{' '}
-          {modalTasks.filter((task) => task.isCompleted).length}
+          {modalTasks.filter((task: Task) => task.isCompleted).length}
         </p>
       </div>
     </div>

@@ -3,10 +3,17 @@ import styles from './Modal.module.scss';
 
 interface ModalProps {
   closeModal: () => void;
-  onNewTask: (task: string) => void;
+  handleAddNewTask: (task: string) => void;
+}
+enum TaskErrorText {
+  MAX_LENGTH = 'Текст задачи не может превышать 40 символов',
+  EMPTY = 'Текст задачи не может быть пустым',
 }
 
-export const Modal: React.FC<ModalProps> = ({ closeModal, onNewTask }) => {
+export const Modal: React.FC<ModalProps> = ({
+  closeModal,
+  handleAddNewTask,
+}) => {
   const [inputValue, setInputValue] = useState<string>('');
   const [isOpen, setisOpen] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -33,12 +40,12 @@ export const Modal: React.FC<ModalProps> = ({ closeModal, onNewTask }) => {
     }
   };
   const handleAddTask = () => {
-    if (inputValue.trim().length < 1) {
-      setError('Текст задачи не может быть пустым');
+    if (!inputValue.trim().length) {
+      setError(TaskErrorText.EMPTY);
     } else if (inputValue.trim().length > 40) {
-      setError('Текст задачи не может превышать 40 символов');
+      setError(TaskErrorText.MAX_LENGTH);
     } else {
-      onNewTask(inputValue);
+      handleAddNewTask(inputValue);
       setInputValue('');
       setError(null);
     }

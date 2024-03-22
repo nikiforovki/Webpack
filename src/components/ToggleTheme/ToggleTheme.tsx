@@ -2,45 +2,51 @@ import React, { useEffect } from 'react';
 import styles from './ToggleTheme.module.scss';
 import { THEME_LOCAL_STORAGE_KEY } from './constants';
 
+enum Theme {
+  LIGHT = 'light',
+  DARK = 'dark',
+}
+
 const ToggleTheme: React.FC = () => {
-  const setDarkMode = () => {
-    document.body.setAttribute('data-theme', 'dark');
-    localStorage.setItem(THEME_LOCAL_STORAGE_KEY, 'dark');
+  const handleDetDarkMode = () => {
+    document.body.setAttribute('data-theme', Theme.DARK);
+    localStorage.setItem(THEME_LOCAL_STORAGE_KEY, Theme.DARK);
   };
-  const setLightMode = () => {
-    document.body.setAttribute('data-theme', 'light');
-    localStorage.setItem(THEME_LOCAL_STORAGE_KEY, 'light');
+  const handleDetLightMode = () => {
+    document.body.setAttribute('data-theme', Theme.LIGHT);
+    localStorage.setItem(THEME_LOCAL_STORAGE_KEY, Theme.LIGHT);
   };
 
   useEffect(() => {
     const selectedTheme = localStorage.getItem(THEME_LOCAL_STORAGE_KEY);
-    if (selectedTheme === 'dark') {
-      setDarkMode();
+    if (selectedTheme === Theme.DARK) {
+      handleDetDarkMode();
     } else {
-      setLightMode();
+      handleDetLightMode();
     }
   }, []);
 
   const toggleTheme = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      setDarkMode();
+      handleDetDarkMode();
     } else {
-      setLightMode();
+      handleDetLightMode();
     }
   };
+
+  const isDarkTheme =
+    localStorage.getItem(THEME_LOCAL_STORAGE_KEY) === Theme.DARK;
 
   return (
     <div className={styles.dark_mode}>
       <input
         className={styles.dark_mode_input}
-        type="checkbox"
-        id="darkmode-toggle"
+        type='checkbox'
+        id='darkmode-toggle'
         onChange={toggleTheme}
-        defaultChecked={
-          localStorage.getItem(THEME_LOCAL_STORAGE_KEY) === 'dark'
-        }
+        defaultChecked={isDarkTheme}
       />
-      <label className={styles.dark_mode_label} htmlFor="darkmode-toggle" />
+      <label className={styles.dark_mode_label} htmlFor='darkmode-toggle' />
     </div>
   );
 };
