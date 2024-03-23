@@ -26,7 +26,7 @@ const ToggleTheme: React.FC = () => {
     }
   }, []);
 
-  const toggleTheme = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleToggleTheme = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
       handleDetDarkMode();
     } else {
@@ -43,7 +43,7 @@ const ToggleTheme: React.FC = () => {
         className={styles.dark_mode_input}
         type='checkbox'
         id='darkmode-toggle'
-        onChange={toggleTheme}
+        onChange={handleToggleTheme}
         defaultChecked={isDarkTheme}
       />
       <label className={styles.dark_mode_label} htmlFor='darkmode-toggle' />

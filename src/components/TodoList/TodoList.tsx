@@ -197,7 +197,7 @@ export const TodoList: React.FC = () => {
         onClick={handleToggleVisiblityModal}
       ></button>
       <div className={styles.wrapper}>
-        <div className={styles.DisplayingTaskList}>
+        <div className={styles.displayingTaskList}>
           <div>
             {modalTasks.map((task: Task, index: number) => (
               <div key={task.id} className={styles.taskDisplays}>
@@ -255,14 +255,14 @@ export const TodoList: React.FC = () => {
         </div>
       </div>
       <div className={styles.taskCollectorWrapper}>
-        <p className={styles.tasksStat}>
+        <p className={styles.taskStatusLeftBlock}>
           Общие колличество задач: {modalTasks.length}
         </p>
-        <p className={styles.tasksStat}>
+        <p className={styles.taskStatusLeftBlock}>
           Активные задачи:{' '}
           {modalTasks.filter((task: Task) => !task.isCompleted).length}
         </p>
-        <p className={styles.tasksStat}>
+        <p className={styles.taskStatusLeftBlock}>
           Выполненые задачи:{' '}
           {modalTasks.filter((task: Task) => task.isCompleted).length}
         </p>

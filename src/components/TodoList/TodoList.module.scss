@@ -17,7 +17,7 @@
   cursor: pointer;
 }
 
-.DisplayingTaskList {
+.displayingTaskList {
   position: absolute;
   top: 450px;
   left: 700px;
@@ -46,12 +46,6 @@
   color: rgb(110, 108, 108);
 }
 
-.taska {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-}
-
 .content {
   width: 750px;
   height: 710px;
@@ -68,18 +62,11 @@
 }
 
 .deleteTask {
-  margin-right: 10px;
-}
-
-.deleteTask {
-  margin-right: 0;
-}
-
-.deleteTask {
   width: 26px;
   height: 26px;
   fill: rgba(0, 0, 0, 0.12);
   cursor: pointer;
+  margin-right: 10px;
 }
 
 .addedTaskMessage {
@@ -141,7 +128,7 @@
   font-size: 20px;
 }
 
-.tasksStat {
+.taskStatusLeftBlock {
   border-bottom: 1px solid;
   color: var(--taskItem-color);
   border-color: var(--taskItem-border-color);

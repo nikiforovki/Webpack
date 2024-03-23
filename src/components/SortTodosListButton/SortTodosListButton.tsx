@@ -6,10 +6,6 @@ const SortTodosListButton: React.FC<ButtonSortProps> = ({ onSortChange }) => {
   const handleSortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const filter = event.target.value;
 
-    if (filter !== 'all' && filter !== 'complete' && filter !== 'incomplete') {
-      console.error('Неверное значение filter');
-      return;
-    }
     if (filter === 'complete') {
       onSortChange('complete');
     } else if (filter === 'incomplete') {

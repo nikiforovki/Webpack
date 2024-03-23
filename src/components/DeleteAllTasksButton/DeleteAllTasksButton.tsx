@@ -12,11 +12,13 @@ const DeleteAllTasksButton: React.FC<ToggleDeleteProps> = ({
   onDeleteTask,
   className,
 }) => {
-  const [isToggled, setIsToggled] = useState(false);
+  const [isDeleteConfirmationVisible, setIsDeleteConfirmationVisible] =
+    useState(false);
 
-  const toggle = () => setIsToggled(!isToggled);
+  const toggle = () =>
+    setIsDeleteConfirmationVisible(!isDeleteConfirmationVisible);
   const confirmDelete = () => {
-    if (isToggled) {
+    if (isDeleteConfirmationVisible) {
       onDeleteTask();
       toggle();
     }
@@ -25,9 +27,9 @@ const DeleteAllTasksButton: React.FC<ToggleDeleteProps> = ({
   return (
     <div className={`${styles.toggleContainer} ${className}`}>
       <button className={styles.buttonDeleteAllTasks} onClick={toggle}>
-        {isToggled ? <BackArrowIcon /> : <TaskDeletionIcon />}
+        {isDeleteConfirmationVisible ? <BackArrowIcon /> : <TaskDeletionIcon />}
       </button>
-      {isToggled && (
+      {isDeleteConfirmationVisible && (
         <button className={styles.confirmDeleteButton} onClick={confirmDelete}>
           Удалить
         </button>
