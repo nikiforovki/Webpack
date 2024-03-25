@@ -10,7 +10,7 @@ import { ADD_TASK, DELETE_TASK } from '../../redux/Actions/actions';
 import { deleteTaskAction } from '../../redux/Actions/actions';
 import SortTodosListButton from '../SortTodosListButton/SortTodosListButton';
 import { v4 as uuidv4 } from 'uuid';
-import { Task } from './types';
+import { Task } from './TaskTypes';
 import { useLocalStorage } from '../../local-storage/useLocalStorage';
 
 export const TodoList: React.FC = () => {
@@ -203,7 +203,7 @@ export const TodoList: React.FC = () => {
               <div key={task.id} className={styles.taskDisplays}>
                 <input
                   type='checkbox'
-                  className={styles.inputCheckbox}
+                  className={styles.noticeCompletionTaskCheckbox}
                   checked={task.isCompleted}
                   onChange={() => handleTaskIsCompleted(index, task)}
                 />
@@ -226,7 +226,7 @@ export const TodoList: React.FC = () => {
                   </div>
                 ) : (
                   <div
-                    className={`${styles.taskText} ${task.isCompleted ? styles.completedTask : ''}`}
+                    className={`${styles.taskText} ${task.isCompleted ? styles.completedTaskMarkedWithLine : ''}`}
                   >
                     {task.text}
                   </div>

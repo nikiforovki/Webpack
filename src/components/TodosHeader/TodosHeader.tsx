@@ -5,7 +5,7 @@ import ToggleTheme from '../ToggleTheme/ToggleTheme';
 
 export const TodosHeader: React.FC = () => {
   return (
-    <div className={styles.headerContainer}>
+    <div className={styles.container}>
       <h1>TODO LIST</h1>
       <SearchInput />
       <ToggleTheme />

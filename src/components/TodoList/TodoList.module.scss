@@ -30,7 +30,7 @@
   z-index: 0;
 }
 
-.inputCheckbox {
+.noticeCompletionTaskCheckbox {
   width: 26px;
   height: 26px;
   background-color: var(--ParentComponent-background-color);
@@ -41,18 +41,9 @@
   cursor: pointer;
 }
 
-.selected {
-  text-decoration: line-through;
-  color: rgb(110, 108, 108);
-}
-
 .content {
   width: 750px;
   height: 710px;
-}
-
-.h1 {
-  color: #6c63ff;
 }
 
 .deleteTaskContainer {
@@ -172,10 +163,6 @@
   position: relative;
 }
 
-.completedTask {
-  text-decoration: line-through;
-}
-
 .buttonSort {
   margin-left: -100px;
 }
@@ -188,7 +175,7 @@
   z-index: 1000;
 }
 
-.completedTask {
+.completedTaskMarkedWithLine {
   text-decoration: line-through;
   color: #888;
 }

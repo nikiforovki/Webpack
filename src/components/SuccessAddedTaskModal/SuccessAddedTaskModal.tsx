@@ -26,7 +26,7 @@ export const SuccessAddedTaskModal: React.FC<AlertModalProps> = ({
 
   return (
     <div className={styles.alertModal}>
-      <div className={styles.box}>
+      <div className={styles.imgAddTask}>
         <p className={styles.textAlert}>Добавлена</p>
       </div>
     </div>

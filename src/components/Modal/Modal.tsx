@@ -1,13 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styles from './Modal.module.scss';
 
 interface ModalProps {
   closeModal: () => void;
   handleAddNewTask: (task: string) => void;
 }
+
 enum TaskErrorText {
   MAX_LENGTH = 'Текст задачи не может превышать 40 символов',
   EMPTY = 'Текст задачи не может быть пустым',
+}
+
+function useOnClickOutside(ref, handler) {
+  useEffect(() => {
+    const listener = (event) => {
+      if (!ref.current || ref.current.contains(event.target)) {
+        return;
+      }
+      handler(event);
+    };
+    document.addEventListener('mousedown', listener);
+    document.addEventListener('touchstart', listener);
+    return () => {
+      document.removeEventListener('mousedown', listener);
+      document.removeEventListener('touchstart', listener);
+    };
+  }, [ref, handler]);
 }
 
 export const Modal: React.FC<ModalProps> = ({
@@ -15,20 +33,10 @@ export const Modal: React.FC<ModalProps> = ({
   handleAddNewTask,
 }) => {
   const [inputValue, setInputValue] = useState<string>('');
-  const [isOpen, setisOpen] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const modalRef = useRef(null);
 
-  const onOpenModal = () => {
-    setisOpen(true);
-  };
-
-  const onCloseModal = () => {
-    setisOpen(false);
-  };
-
-  const handleInputClick = (event: React.MouseEvent<HTMLInputElement>) => {
-    event.stopPropagation();
-  };
+  useOnClickOutside(modalRef, closeModal);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
@@ -39,6 +47,7 @@ export const Modal: React.FC<ModalProps> = ({
       handleAddTask();
     }
   };
+
   const handleAddTask = () => {
     if (!inputValue.trim().length) {
       setError(TaskErrorText.EMPTY);
@@ -52,21 +61,20 @@ export const Modal: React.FC<ModalProps> = ({
   };
 
   return (
-    <div className={styles.modal_content} onClick={closeModal}>
+    <div ref={modalRef} className={styles.modal_content}>
       <h1 className={styles.title}>Добавить задачу</h1>
       <input
-        className={styles.input}
+        className={styles.inputAddTask}
         placeholder='Введите текст...'
         value={inputValue}
         onChange={handleInputChange}
-        onClick={handleInputClick}
         onKeyDown={handleKeyDown}
       />
-      {error && <div className={styles.errorMessage}>{error}</div>}
-      <button className={styles.closeButton} onClick={onCloseModal}>
+      {error && <div className={styles.validationErrorMessage}>{error}</div>}
+      <button className={styles.closeButton} onClick={closeModal}>
         Закрыть
       </button>
-      <button className={styles.appButton} onClick={handleAddTask}>
+      <button className={styles.buttonAddingTask} onClick={handleAddTask}>
         Добавить
       </button>
     </div>

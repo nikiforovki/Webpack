@@ -1,21 +1,11 @@
+import { Task } from './types';
+import { TaskState } from './types';
 import {
   TaskActionTypes,
   ADD_TASK,
   DELETE_TASK,
   UPDATE_TASK,
 } from '../Actions/actions';
-
-export interface Task {
-  id: string;
-  text: string;
-  isCompleted: boolean;
-}
-
-export interface TaskState {
-  tasks: Task[];
-  deletedTasks: Task[];
-  completedTasks: Task[];
-}
 
 const initialState: TaskState = {
   tasks: [],
