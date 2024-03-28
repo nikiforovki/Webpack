@@ -1,0 +1,48 @@
+.button {
+  background-color: #6c63ff;
+  padding: 10px;
+  width: 90px;
+  height: 38px;
+  border-radius: 5px;
+  margin-left: 580px;
+  border: none;
+  overflow: visible;
+  position: fixed;
+  top: 88px;
+  left: 350px;
+  z-index: 1000;
+  background-image: url('../../../public/Img/ArrowIcon.svg');
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 0.65em auto;
+}
+
+.button select {
+  background: none;
+  border: none;
+  color: #e0e0e0;
+  font: inherit;
+  outline: inherit;
+  cursor: pointer;
+  width: 93px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: rgba(247, 247, 247, 0);
+}
+
+.select {
+  background-color: #0e0d0d;
+}
+
+.select::after {
+  content: '';
+  position: absolute;
+  right: 10px;
+  margin-left: 200px;
+  transform: translateY(-50%);
+  border-left: 6px solid #6c63ff;
+  border-top: 3px solid transparent;
+  border-bottom: 3px solid transparent;
+  pointer-events: none;
+}

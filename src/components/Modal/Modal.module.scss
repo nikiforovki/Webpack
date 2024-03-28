@@ -1,0 +1,69 @@
+.modal_content {
+  padding: 20px;
+  border-radius: 10px;
+  background-color: var(--modal_content-background-color);
+  height: 150px;
+  width: 500px;
+  z-index: 100;
+  position: fixed;
+  top: 250px;
+  left: 650px;
+  transform: translate(-50%, -50%);
+  border: 2px solid #fdfdfd;
+}
+
+.title {
+  color: var(--title-color);
+  margin-top: -10px;
+  font-size: 24px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+}
+
+.closeButton {
+  position: absolute;
+  bottom: 0;
+  width: 110px;
+  height: 38px;
+  border-radius: 5px;
+  color: #6c63ff;
+  left: 40px;
+  top: 140px;
+  cursor: pointer;
+}
+
+.buttonAddingTask {
+  position: absolute;
+  bottom: 0;
+  width: 110px;
+  height: 38px;
+  border-radius: 5px;
+  color: #ffffff;
+  right: 40px;
+  top: 140px;
+  background-color: #6c63ff;
+  cursor: pointer;
+}
+
+.inputAddTask {
+  width: 440px;
+  height: 20px;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  margin-top: 20px;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  border-color: var(--input-border-color);
+  margin-left: 20px;
+}
+
+.validationErrorMessage {
+  color: red;
+  margin-top: 10px;
+  text-align: center;
+}
