@@ -17,7 +17,7 @@
   cursor: pointer;
 }
 
-.displayingTaskList {
+.taskList {
   position: absolute;
   top: 450px;
   left: 700px;
@@ -30,7 +30,7 @@
   z-index: 0;
 }
 
-.noticeCompletionTaskCheckbox {
+.completeTaskCheckbox {
   width: 26px;
   height: 26px;
   background-color: var(--ParentComponent-background-color);
@@ -98,7 +98,7 @@
   left: -65px;
 }
 
-.taskCollectorWrapper {
+.taskCounter {
   width: 300px;
   height: 180px;
   background-color: rgba(253, 253, 253, 0);
@@ -119,7 +119,7 @@
   font-size: 20px;
 }
 
-.taskStatusLeftBlock {
+.taskStatus {
   border-bottom: 1px solid;
   color: var(--taskItem-color);
   border-color: var(--taskItem-border-color);
@@ -127,7 +127,7 @@
   font-size: 20px;
 }
 
-.editButton {
+.editTaskButton {
   width: 26px;
   height: 26px;
   background-image: url('../../../public/Img/TaskChangesIcon.svg');
@@ -159,7 +159,7 @@
   z-index: 3000;
 }
 
-.taskInput {
+.addTaskInput {
   position: relative;
 }
 

@@ -1,4 +1,4 @@
-export const getLocalStorageItem = (key: string) => {
+export const getLocalStorageValue = (key: string) => {
   try {
     const item = localStorage.getItem(key);
     if (item === null) {

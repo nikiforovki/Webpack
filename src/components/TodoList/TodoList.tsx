@@ -6,16 +6,33 @@ import { SuccessAddedTaskModal } from '../SuccessAddedTaskModal/SuccessAddedTask
 import DeleteAllTasksButton from '../DeleteAllTasksButton/DeleteAllTasksButton';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, AppDispatch } from '../../redux/store/store';
-import { ADD_TASK, DELETE_TASK } from '../../redux/Actions/actions';
+import {
+  ADD_TASK,
+  DELETE_TASK,
+  UPDATE_TASK,
+} from '../../redux/types/ActionsTypes';
 import { deleteTaskAction } from '../../redux/Actions/actions';
 import SortTodosListButton from '../SortTodosListButton/SortTodosListButton';
 import { v4 as uuidv4 } from 'uuid';
 import { Task } from './TaskTypes';
 import { useLocalStorage } from '../../local-storage/useLocalStorage';
+import classNames from 'classnames';
 
 export const TodoList: React.FC = () => {
-  const [modalTasks, setModalTasks] = useLocalStorage('tasks', []);
-  const [deletedTasks, setDeletedTasks] = useLocalStorage('deletedTasks', []);
+  const TASKS_KEY = 'tasks';
+  const COMPLETED_TASKS_KEY = 'completedTasks';
+  const DELETED_TASKS_KEY = 'deletedTasks';
+
+  const [modalTasks, setModalTasks] = useLocalStorage<Task[]>(TASKS_KEY, []);
+  const [completedTasks, setCompletedTasks] = useLocalStorage<Task[]>(
+    COMPLETED_TASKS_KEY,
+    [],
+  );
+  const [deletedTasks, setDeletedTasks] = useLocalStorage<Task[]>(
+    DELETED_TASKS_KEY,
+    [],
+  );
+
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isAlertOpen, setIsAlertOpen] = useState<boolean>(false);
   const [alertMessage, setAlertMessage] = useState<string>('');
@@ -28,22 +45,22 @@ export const TodoList: React.FC = () => {
   const tasks = useSelector((state: RootState) => state.tasks);
 
   useEffect(() => {
-    const savedTasks = localStorage.getItem('tasks');
+    const savedTasks = localStorage.getItem(TASKS_KEY);
     if (savedTasks) {
       setModalTasks(JSON.parse(savedTasks));
     }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('tasks', JSON.stringify(modalTasks));
+    localStorage.setItem(TASKS_KEY, JSON.stringify(modalTasks));
     localStorage.setItem('deletedTasks', JSON.stringify(deletedTasks));
   }, [modalTasks, deletedTasks]);
 
   useEffect(() => {
-    const savedCompletedTasks = localStorage.getItem('completedTasks');
+    const savedCompletedTasks = localStorage.getItem(COMPLETED_TASKS_KEY);
     if (savedCompletedTasks) {
       try {
-        const parsedTasks = JSON.parse(savedCompletedTasks) as Task[];
+        const parsedTasks: Task[] = JSON.parse(savedCompletedTasks);
 
         setModalTasks((prevTasks: Task[]) => {
           return prevTasks.map((task) => {
@@ -143,7 +160,9 @@ export const TodoList: React.FC = () => {
   const deleteAllTasks = () => {
     setModalTasks([]);
     setDeletedTasks([]);
-    localStorage.clear();
+    localStorage.removeItem('tasks');
+    localStorage.removeItem(DELETED_TASKS_KEY);
+    localStorage.removeItem(COMPLETED_TASKS_KEY);
   };
 
   const allTasks = [...modalTasks, ...deletedTasks];
@@ -197,13 +216,13 @@ export const TodoList: React.FC = () => {
         onClick={handleToggleVisiblityModal}
       ></button>
       <div className={styles.wrapper}>
-        <div className={styles.displayingTaskList}>
+        <div className={styles.taskList}>
           <div>
             {modalTasks.map((task: Task, index: number) => (
               <div key={task.id} className={styles.taskDisplays}>
                 <input
                   type='checkbox'
-                  className={styles.noticeCompletionTaskCheckbox}
+                  className={styles.completeTaskCheckbox}
                   checked={task.isCompleted}
                   onChange={() => handleTaskIsCompleted(index, task)}
                 />
@@ -226,7 +245,9 @@ export const TodoList: React.FC = () => {
                   </div>
                 ) : (
                   <div
-                    className={`${styles.taskText} ${task.isCompleted ? styles.completedTaskMarkedWithLine : ''}`}
+                    className={classNames(styles.taskText, {
+                      [styles.completedTaskMarkedWithLine]: task.isCompleted,
+                    })}
                   >
                     {task.text}
                   </div>
@@ -236,7 +257,7 @@ export const TodoList: React.FC = () => {
                   onClick={() => handleDeleteTask(task.id)}
                 >
                   <button
-                    className={styles.editButton}
+                    className={styles.editTaskButton}
                     onClick={(event) => {
                       event.stopPropagation();
                       setTaskEditValue(task.text);
@@ -254,15 +275,15 @@ export const TodoList: React.FC = () => {
           />
         </div>
       </div>
-      <div className={styles.taskCollectorWrapper}>
-        <p className={styles.taskStatusLeftBlock}>
+      <div className={styles.taskCounter}>
+        <p className={styles.taskStatus}>
           Общие колличество задач: {modalTasks.length}
         </p>
-        <p className={styles.taskStatusLeftBlock}>
+        <p className={styles.taskStatus}>
           Активные задачи:{' '}
           {modalTasks.filter((task: Task) => !task.isCompleted).length}
         </p>
-        <p className={styles.taskStatusLeftBlock}>
+        <p className={styles.taskStatus}>
           Выполненые задачи:{' '}
           {modalTasks.filter((task: Task) => task.isCompleted).length}
         </p>

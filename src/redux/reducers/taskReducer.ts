@@ -1,11 +1,10 @@
-import { Task } from './types';
 import { TaskState } from './types';
 import {
   TaskActionTypes,
   ADD_TASK,
   DELETE_TASK,
   UPDATE_TASK,
-} from '../Actions/actions';
+} from '../types/ActionsTypes';
 
 const initialState: TaskState = {
   tasks: [],

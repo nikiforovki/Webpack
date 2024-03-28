@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styles from './Modal.module.scss';
+import { useOnClickOutside } from '../hooks/useOnClickOutside';
 
 interface ModalProps {
   closeModal: () => void;
@@ -9,23 +10,6 @@ interface ModalProps {
 enum TaskErrorText {
   MAX_LENGTH = 'Текст задачи не может превышать 40 символов',
   EMPTY = 'Текст задачи не может быть пустым',
-}
-
-function useOnClickOutside(ref, handler) {
-  useEffect(() => {
-    const listener = (event) => {
-      if (!ref.current || ref.current.contains(event.target)) {
-        return;
-      }
-      handler(event);
-    };
-    document.addEventListener('mousedown', listener);
-    document.addEventListener('touchstart', listener);
-    return () => {
-      document.removeEventListener('mousedown', listener);
-      document.removeEventListener('touchstart', listener);
-    };
-  }, [ref, handler]);
 }
 
 export const Modal: React.FC<ModalProps> = ({
@@ -49,7 +33,7 @@ export const Modal: React.FC<ModalProps> = ({
   };
 
   const handleAddTask = () => {
-    if (!inputValue.trim().length) {
+    if (!inputValue.trim()) {
       setError(TaskErrorText.EMPTY);
     } else if (inputValue.trim().length > 40) {
       setError(TaskErrorText.MAX_LENGTH);
@@ -62,7 +46,7 @@ export const Modal: React.FC<ModalProps> = ({
 
   return (
     <div ref={modalRef} className={styles.modal_content}>
-      <h1 className={styles.title}>Добавить задачу</h1>
+      <span className={styles.title}>Добавить задачу</span>
       <input
         className={styles.inputAddTask}
         placeholder='Введите текст...'
@@ -70,6 +54,7 @@ export const Modal: React.FC<ModalProps> = ({
         onChange={handleInputChange}
         onKeyDown={handleKeyDown}
       />
+
       {error && <div className={styles.validationErrorMessage}>{error}</div>}
       <button className={styles.closeButton} onClick={closeModal}>
         Закрыть

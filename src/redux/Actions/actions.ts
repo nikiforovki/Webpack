@@ -1,6 +1,6 @@
-export const ADD_TASK = 'ADD_TASK';
-export const DELETE_TASK = 'DELETE_TASK';
-export const UPDATE_TASK = 'UPDATE_TASK';
+import { ADD_TASK } from '../types/ActionsTypes';
+import { DELETE_TASK } from '../types/ActionsTypes';
+import { UPDATE_TASK } from '../types/ActionsTypes';
 
 export interface Task {
   id: string;
@@ -20,11 +20,6 @@ export interface UpdateTaskAction {
   type: typeof UPDATE_TASK;
   payload: Task;
 }
-
-export type TaskActionTypes =
-  | AddTaskAction
-  | DeleteTaskAction
-  | UpdateTaskAction;
 
 export const deleteTaskAction = (taskId: string): DeleteTaskAction => ({
   type: typeof DELETE_TASK,

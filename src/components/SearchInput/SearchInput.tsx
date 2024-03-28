@@ -23,7 +23,7 @@ export const SearchInput: React.FC<SearchInputProps> = ({
   return (
     <div className={styles.inputButtonContainer}>
       <input
-        className={styles.inputSearchTaskText}
+        className={styles.inputSearchTask}
         type='search'
         placeholder='Введите задачу...'
         value={inputValue}
